@@ -1,5 +1,6 @@
 package co.mrmanhattan.manhattanreceiver;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import android.os.Bundle;
@@ -9,16 +10,19 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.view.Menu;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 // TODO: Get a list of all the available bluetooth devices and show them in a list
 public class MainActivity extends Activity {
 
+	private ArrayList<String> deviceNames;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		this.deviceNames = new ArrayList<String>();
 		
-		ArrayAdapter<String> devicesArray = new ArrayAdapter<String>(this, R.id.secondLine);
 		BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter();
 		
 		// check if the bluetooth is enabled
@@ -30,8 +34,14 @@ public class MainActivity extends Activity {
 			Set<BluetoothDevice> devices = bluetooth.getBondedDevices();
 			
 			for (BluetoothDevice device : devices) {
-				devicesArray.add(device.getName() + "\n" + device.getAddress());
+				this.deviceNames.add(device.getName() + "\n" + device.getAddress());
 			}
+			
+			ArrayAdapter<String> devicesArray = new ArrayAdapter<String>(this, R.layout.bluetooth_device_view, this.deviceNames);
+			
+			ListView list = (ListView) findViewById(R.id.bluetoothList);
+			list.setAdapter(devicesArray);
+			
 		}
 				
 	}
