@@ -34,7 +34,8 @@ public class MainActivity extends Activity {
 			Set<BluetoothDevice> devices = bluetooth.getBondedDevices();
 			
 			for (BluetoothDevice device : devices) {
-				this.deviceNames.add(device.getName() + "\n" + device.getAddress());
+				this.deviceNames.add(device.getName() + "\n" + device.getAddress() + device.getUuids()[0].toString());
+				//device.createRfcommSocketToServiceRecord(uuid)
 			}
 			
 			ArrayAdapter<String> devicesArray = new ArrayAdapter<String>(this, R.layout.bluetooth_device_view, this.deviceNames);
