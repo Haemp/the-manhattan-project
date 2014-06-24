@@ -47,19 +47,24 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.activity_main);
 		this.deviceNames = new ArrayList<String>();
 		text = (TextView) findViewById(R.id.signal);
 		text.setText("Initated");
+		
+		// bluetooth logic
 		bluetooth = BluetoothAdapter.getDefaultAdapter();
 		BluetoothSocket socket = null;
 		// check if the bluetooth is enabled
 		BluetoothDevice device = getDeviceByName("HC-06");
 		
-		// send this device to the thread to handle the 
-		// socket connection
-		this.thread = new ConnectThread(device);
-		this.thread.start();
+		if(device != null){
+			// send this device to the thread to handle the 
+			// socket connection
+			this.thread = new ConnectThread(device);
+			this.thread.start();			
+		}
 	}
 	
 	
