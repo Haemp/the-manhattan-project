@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Set;
 
 import javax.crypto.AEADBadTagException;
@@ -40,6 +42,9 @@ public class MainActivity extends Activity {
 			String txt = b+"";
 			text.setText(txt);
 			
+			// get current time
+			
+			
 			System.out.println("Message" +msg.toString());
 		}
 	};
@@ -52,6 +57,10 @@ public class MainActivity extends Activity {
 		this.deviceNames = new ArrayList<String>();
 		text = (TextView) findViewById(R.id.signal);
 		text.setText("Initated");
+		
+		Calendar c = Calendar.getInstance(); 
+		SimpleDateFormat format1 = new SimpleDateFormat("HH:mm");
+		String formatted = format1.format(c.getTime());
 		
 		// bluetooth logic
 		if( bluetooth != null ){
