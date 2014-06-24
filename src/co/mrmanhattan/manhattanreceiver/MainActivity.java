@@ -54,16 +54,19 @@ public class MainActivity extends Activity {
 		text.setText("Initated");
 		
 		// bluetooth logic
-		bluetooth = BluetoothAdapter.getDefaultAdapter();
-		BluetoothSocket socket = null;
-		// check if the bluetooth is enabled
-		BluetoothDevice device = getDeviceByName("HC-06");
-		
-		if(device != null){
-			// send this device to the thread to handle the 
-			// socket connection
-			this.thread = new ConnectThread(device);
-			this.thread.start();			
+		if( bluetooth != null ){
+			
+			bluetooth = BluetoothAdapter.getDefaultAdapter();
+			BluetoothSocket socket = null;
+			// check if the bluetooth is enabled
+			BluetoothDevice device = getDeviceByName("HC-06");
+			
+			if(device != null){
+				// send this device to the thread to handle the 
+				// socket connection
+				this.thread = new ConnectThread(device);
+				this.thread.start();			
+			}
 		}
 	}
 	
