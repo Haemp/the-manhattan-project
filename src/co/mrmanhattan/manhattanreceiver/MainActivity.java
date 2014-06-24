@@ -74,6 +74,17 @@ public class MainActivity extends Activity {
 		text = (TextView) findViewById(R.id.signal);
 		text.setText("Initated");
 		
+		if(true){
+			ttobj=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+				   @Override
+				   public void onInit(int status) {
+					   ttobj.setLanguage(Locale.UK);
+					   speakText("Hello prease");
+				   }
+				}
+				);
+		}
+		
 		// bluetooth logic
 		if( bluetooth != null ){
 			
