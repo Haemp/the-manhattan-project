@@ -20,10 +20,12 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.speech.tts.TextToSpeech;
 import android.view.Menu;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import java.util.Locale;
 
 // TODO: Get a list of all the available bluetooth devices and show them in a list
 public class MainActivity extends Activity {
@@ -31,6 +33,7 @@ public class MainActivity extends Activity {
 	private ArrayList<String> deviceNames;
 	private BluetoothAdapter bluetooth; 
 	private ConnectThread thread;
+	public TextToSpeech ttobj; 
 	public TextView text;
 	
 	Handler mHandler = new Handler(){
@@ -40,6 +43,17 @@ public class MainActivity extends Activity {
 			byte[] a = (byte[]) msg.obj;
 			byte b = a[0];
 			String txt = b+"";
+			
+			if(txt.equals("7")){
+				ttobj=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+					   @Override
+					   public void onInit(int status) {
+						   ttobj.setLanguage(Locale.UK);
+					   }
+					}
+					);
+			}
+			
 			text.setText(txt);
 			
 			// get current time
@@ -49,6 +63,13 @@ public class MainActivity extends Activity {
 		}
 	};
 	
+	/*
+	 * Method that takes a string and outputs it as sound 
+	 */
+   public void speakText(String toSpeak){
+	      ttobj.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+	   }
+   
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,9 +79,23 @@ public class MainActivity extends Activity {
 		text = (TextView) findViewById(R.id.signal);
 		text.setText("Initated");
 		
-		Calendar c = Calendar.getInstance(); 
-		SimpleDateFormat format1 = new SimpleDateFormat("HH:mm");
-		String formatted = format1.format(c.getTime());
+
+
+		if(true){
+			ttobj=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+				   @Override
+				   public void onInit(int status) {
+					   ttobj.setLanguage(Locale.UK);
+						Calendar c = Calendar.getInstance(); 
+						SimpleDateFormat format1 = new SimpleDateFormat("HH:mm");
+						String formatted = format1.format(c.getTime());
+
+					   speakText(formatted);
+				   }
+				}
+				);
+		}
+
 		
 		// bluetooth logic
 		if( bluetooth != null ){
