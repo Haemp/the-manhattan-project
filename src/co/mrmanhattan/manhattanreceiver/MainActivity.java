@@ -4,8 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Array;
+
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Set;
 
 import javax.crypto.AEADBadTagException;
@@ -48,15 +52,24 @@ public class MainActivity extends Activity {
 			if(txt.equals("1")){
 				ttobj=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
 					   @Override
+					   
+					   
 					   public void onInit(int status) {
 						   ttobj.setLanguage(Locale.UK);
-						   speakText("Hello prease");
+						   Calendar c = Calendar.getInstance(); 
+							SimpleDateFormat format1 = new SimpleDateFormat("HH:mm");
+							String formatted = format1.format(c.getTime());
+
+						   speakText(formatted);
 					   }
 					}
 					);
 			}
 			
 			text.setText(txt);
+			
+			// get current time
+			
 			
 			System.out.println("Message" +msg.toString());
 		}
@@ -78,16 +91,23 @@ public class MainActivity extends Activity {
 		text = (TextView) findViewById(R.id.signal);
 		text.setText("Initated");
 		
+
+
 		if(true){
 			ttobj=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
 				   @Override
 				   public void onInit(int status) {
 					   ttobj.setLanguage(Locale.UK);
-					   speakText("Hello prease");
+						Calendar c = Calendar.getInstance(); 
+						SimpleDateFormat format1 = new SimpleDateFormat("HH:mm");
+						String formatted = format1.format(c.getTime());
+
+					   speakText(formatted);
 				   }
 				}
 				);
 		}
+
 		
 		// bluetooth logic
 			
