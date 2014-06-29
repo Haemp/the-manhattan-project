@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Array;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -19,10 +20,12 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.speech.tts.TextToSpeech;
+import android.text.format.Time;
 import android.view.Menu;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import java.util.Locale;
 
 // TODO: Get a list of all the available bluetooth devices and show them in a list
@@ -42,11 +45,12 @@ public class MainActivity extends Activity {
 			byte b = a[0];
 			String txt = b+"";
 			
-			if(txt.equals("7")){
+			if(txt.equals("1")){
 				ttobj=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
 					   @Override
 					   public void onInit(int status) {
 						   ttobj.setLanguage(Locale.UK);
+						   speakText("Hello prease");
 					   }
 					}
 					);
@@ -86,9 +90,9 @@ public class MainActivity extends Activity {
 		}
 		
 		// bluetooth logic
-		if( bluetooth != null ){
 			
 			bluetooth = BluetoothAdapter.getDefaultAdapter();
+		if( bluetooth != null ){
 			BluetoothSocket socket = null;
 			// check if the bluetooth is enabled
 			BluetoothDevice device = getDeviceByName("HC-06");
