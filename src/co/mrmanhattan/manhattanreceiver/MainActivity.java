@@ -105,6 +105,7 @@ public class MainActivity extends Activity {
 					   speakText(formatted);
 				   }
 				}
+			
 				);
 		}
 
@@ -115,7 +116,7 @@ public class MainActivity extends Activity {
 		if( bluetooth != null ){
 			BluetoothSocket socket = null;
 			// check if the bluetooth is enabled
-			BluetoothDevice device = getDeviceByName("HC-06");
+			BluetoothDevice device = getDeviceByName("DKBLE113 thermometer");
 			
 			if(device != null){
 				// send this device to the thread to handle the 
